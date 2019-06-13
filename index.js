@@ -1,20 +1,34 @@
-const keys = o => new Set(Object.keys(o));
+import fs from 'fs';
+import path from 'path';
+import gsandfConfig from 'eslint-config-gsandf';
+import gsandfReactConfig from 'eslint-config-gsandf-react';
+import reactAppConfig from 'eslint-config-react-app';
+import reactHooksConfig from 'eslint-plugin-react-hooks';
+import standardConfig from 'eslint-config-standard';
+import { difference, unionObjectKeys } from './set-utils.js';
 
-const gsandf = keys(require('eslint-config-gsandf').rules);
-const gsandfReact = keys(require('eslint-config-gsandf-react').rules);
-const reactApp = keys(require('eslint-config-react-app').rules);
-const standard = keys(require('eslint-config-standard').rules);
+const gsandfRules = unionObjectKeys(
+  gsandfConfig.rules,
+  gsandfReactConfig.rules,
+  standardConfig.rules
+);
 
-const difference = (a, b) => new Set([...a].filter(x => !b.has(x)));
+const comparisons = [
+  ['react-app', reactAppConfig.rules],
+  ['react-hooks', reactHooksConfig.rules]
+];
 
-const union = (...args) =>
-  new Set([].concat(...args.map(set => Array.from(set))));
+const differences = comparisons.reduce(
+  (accum, [name, rules]) => ({
+    ...accum,
+    [name]: Array.from(difference(Object.keys(rules), gsandfRules))
+  }),
+  {}
+);
 
-const ourConfig = union(gsandf, gsandfReact, standard);
+const outputFile = path.resolve('./differences.json');
 
-console.log(difference(reactApp, ourConfig));
-
-gsandfReact;
+fs.writeFileSync(outputFile, JSON.stringify(differences, null, 2));
 
 /*
 possible rules to add:
