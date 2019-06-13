@@ -7,17 +7,20 @@ import reactHooksConfig from 'eslint-plugin-react-hooks';
 import standardConfig from 'eslint-config-standard';
 import { difference, unionObjectKeys } from './set-utils.js';
 
+// Create list of all rules our config relies on
 const gsandfRules = unionObjectKeys(
   gsandfConfig.rules,
   gsandfReactConfig.rules,
   standardConfig.rules
 );
 
+// A tuple with the parts [ name, rules ]
 const comparisons = [
   ['react-app', reactAppConfig.rules],
   ['react-hooks', reactHooksConfig.rules]
 ];
 
+// Create an object containing rule differences
 const differences = comparisons.reduce(
   (accum, [name, rules]) => ({
     ...accum,
