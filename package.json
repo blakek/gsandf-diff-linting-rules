@@ -5,11 +5,13 @@
   "author": "GS&F Devs <mindreactor@gsandf.com> (https://gsandf.com/)",
   "license": "MIT",
   "dependencies": {
-    "eslint-config-gsandf": "^1.0.1",
-    "eslint-config-gsandf-react": "^1.1.0",
-    "eslint-config-react-app": "^4.0.1",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-react-hooks": "^1.6.0"
+    "concordance": "^4.0.0",
+    "eslint-config-gsandf": "latest",
+    "eslint-config-gsandf-react": "latest",
+    "eslint-config-react-app": "latest",
+    "eslint-config-standard": "latest",
+    "eslint-config-standard-prev": "npm:eslint-config-standard@12.0.0",
+    "eslint-plugin-react-hooks": "latest"
   },
   "scripts": {
     "start": "node --experimental-modules index.js"

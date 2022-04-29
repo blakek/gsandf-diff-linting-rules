@@ -4,21 +4,20 @@ import gsandfConfig from 'eslint-config-gsandf';
 import gsandfReactConfig from 'eslint-config-gsandf-react';
 import reactAppConfig from 'eslint-config-react-app';
 import reactHooksConfig from 'eslint-plugin-react-hooks';
-import standardConfig from 'eslint-config-standard';
+import nextStandardConfig from 'eslint-config-standard';
 import { difference, unionObjectKeys } from './set-utils.js';
+
+import prevStandardConfig from '/Users/bknight/Desktop/scratchpad/lint-new/node_modules/eslint-config-gsandf/node_modules/eslint-config-standard/index.js';
 
 // Create list of all rules our config relies on
 const gsandfRules = unionObjectKeys(
   gsandfConfig.rules,
   gsandfReactConfig.rules,
-  standardConfig.rules
+  prevStandardConfig.rules
 );
 
 // A tuple with the parts [ name, rules ]
-const comparisons = [
-  ['react-app', reactAppConfig.rules],
-  ['react-hooks', reactHooksConfig.rules]
-];
+const comparisons = [['standard@latest', nextStandardConfig.rules]];
 
 // Create an object containing rule differences
 const differences = comparisons.reduce(
